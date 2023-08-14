@@ -1,11 +1,9 @@
 name: Tag Release
 
-on: 
-    pull_request:
-        types:
-            - opened
-        branches:
-            - main
+on:
+  push:
+      branches:
+          - release/**
 
 jobs:
     release:
@@ -16,6 +14,5 @@ jobs:
         - name: Git tag
           run: |
             export version=$(git branch --show-current | sed 's:.*/::')
-            echo $version
             git tag -a $version -m $version
             git push origin --tags
