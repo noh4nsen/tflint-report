@@ -12,6 +12,6 @@ echo $projects | jq -r '.projects[]' | while read -r project; do
     echo $report
 done
 
-echo $report
+echo "$report"
 
 echo "tflint_report='$(echo $report)'" >> $GITHUB_OUTPUT
