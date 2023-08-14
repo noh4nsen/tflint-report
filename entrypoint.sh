@@ -2,9 +2,7 @@
 
 set -euo pipefail
 
-projects=$1
-
-echo $projects
+projects=$(echo $1 | tr -d "'")
 
 echo $projects | jq -r '.projects[]' | while read -r repo; do
     echo $repo;
