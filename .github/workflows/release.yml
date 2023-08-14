@@ -5,7 +5,7 @@ on:
         types:
             - opened
         branches:
-            - release/**
+            - main
 
 jobs:
     build:
@@ -16,5 +16,6 @@ jobs:
         - name: Git tag
           run: |
             export version=$(git branch --show-current | sed 's:.*/::')
+            echo $version
             git tag -a $version -m $version
             git push origin --tags
