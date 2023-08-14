@@ -9,9 +9,7 @@ while read -r project; do
     echo "--- Running TFLint on $project ---"
 
     cd $GITHUB_WORKSPACE/$project
-    json_object=$(jq -n -c --argjson $project "$(tflint --format=json)" '$ARGS.named')
-    echo $json_object | jq --arg project $project '.[$project].issues[].rule.name'
-    report=$(jq --argjson obj "$json_object" '. + [$obj]' <<< "$report")
+    report=$(jq --argjson obj "$(jq -n -c --argjson $project "$(tflint --format=json)" '$ARGS.named')" '. + [$obj]' <<< "$report")
 
     echo -e "--- Finished Report on $project ---\n"
 done < <(echo $projects | tr -d "'" | jq -r '.projects[]' )
