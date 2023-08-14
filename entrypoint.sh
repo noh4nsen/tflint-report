@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-projects=$(echo $1 | tr -d "'")
+projects=$1
 report="[]"
 
 while read -r project; do
@@ -14,6 +14,6 @@ while read -r project; do
     report=$(jq --argjson obj "$json_object" '. + [$obj]' <<< "$report")
 
     echo -e "--- Finished Report on $project ---\n"
-done < <(echo $projects | jq -r '.projects[]' )
+done < <(echo $projects | tr -d "'" | jq -r '.projects[]' )
 
 echo "tflint_report='$(echo $report)'" >> $GITHUB_OUTPUT
