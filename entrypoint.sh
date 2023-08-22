@@ -7,7 +7,7 @@ report="[]"
 
 if [[ $projects == *null* ]]; then
     echo "--- No projects to run TFLint on ---"
-    echo "tflint_report='$(echo $report)'" >> $GITHUB_OUTPUT
+    echo "tflint_report=$(echo $report)" >> $GITHUB_OUTPUT
     exit 0
 fi
 
@@ -21,4 +21,4 @@ while read -r project; do
 done < <(echo $projects | tr -d "'" | jq -r '.projects[]' )
 
 
-echo "tflint_report='$(echo $report)'" >> $GITHUB_OUTPUT
+echo "tflint_report=$(echo $report)" >> $GITHUB_OUTPUT
