@@ -20,5 +20,7 @@ while read -r project; do
     echo -e "--- Finished Report on $project ---\n"
 done < <(echo $projects | tr -d "'" | jq -r '.projects[]' )
 
+encoded_report=$(echo -n $report | base64)
+echo $encoded_report
 
-echo "tflint_report=$(echo -n $report | base64)" >> $GITHUB_OUTPUT
+echo "tflint_report=$encoded_report" >> $GITHUB_OUTPUT
