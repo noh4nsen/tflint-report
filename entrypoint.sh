@@ -23,4 +23,4 @@ done < <(echo $projects | tr -d "'" | jq -r '.projects[]' )
 encoded_report=$(echo -n $report | base64)
 echo -n $encoded_report
 
-echo -n "tflint_report=$encoded_report" >> $GITHUB_OUTPUT
+echo -n "tflint_report=$(echo -n $encoded_report)" >> $GITHUB_OUTPUT
